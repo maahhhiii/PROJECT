@@ -18,6 +18,7 @@ def post_announcement(announcement: schemas.AnnouncementBase, db: Session = Depe
     new = models.Announcement(title=announcement.title, content=announcement.content, posted_by=username)
     db.add(new)
     db.commit()
+    db.refresh(new)
     return {"msg": "Posted"}
 
 @router.get("/announcements", response_model=list[schemas.AnnouncementOut])
